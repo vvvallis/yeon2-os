@@ -3,28 +3,39 @@
 # image will be published to ghcr.io/<user>/<name>
 name: yeon2-os
 # description will be included in the image's metadata
-description: This is my personal OS image.
+description: 노트북용 시큐어블루 개인 커스텀 os.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 42 # latest is also supported if you want new updates ASAP
+base-image: ghcr.io/secureblue/silverblue-main-hardened
+image-version: 44 # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
-modules:
-  - type: files
-    files:
-      - source: system
-        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
   - type: dnf
     repos:
-      copr:
-        - atim/starship
+      cleanup: true
+      files:
+        - https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+      keys:
+        - https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     install:
       packages:
-        - micro
-        - starship
+        - brave-browser
+        # 보안/점검 도구
+        - kdiskmark
+        - clamav
+        - clamav-update
+        - rkhunter
+        - lynis
+        # Noto 폰트 (전 언어)
+        - google-noto-fonts-common
+        - google-noto-sans-fonts
+        - google-noto-serif-fonts
+        - google-noto-mono-fonts
+        - google-noto-sans-cjk-fonts
+        - google-noto-serif-cjk-fonts
+        - google-noto-emoji-fonts
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
@@ -38,8 +49,43 @@ modules:
         scope: system
         # If no repo information is specified, Flathub will be used by default
         install: # system flatpaks we want all users to have and not remove
-          - org.mozilla.firefox
-          - org.gnome.Loupe
+          # --- 웹 브라우저 & 인터넷 ---
+          - org.mozilla.firefox             # 파이어폭스 순정 웹 브라우저
+          - org.telegram.desktop            # 텔레그램 데스크톱 공식 메신저
+          - org.qbittorrent.qBittorrent     # 광고 없는 오픈소스 토렌트 다운로더
+
+          # --- 시스템 관리 & 패키지 도구 ---
+          - com.github.tchx84.Flatseal      # 플랫팩 앱들의 샌드박스 권한 제어기
+          - io.github.denysmb.unify         # 웹앱 매니저
+          - io.github.DenysMb.Kontainer     # 디스트로박스(Distrobox) 컨테이너 관리 GUI
+          - io.github.giantpinkrobots.flatsweep # 플랫팩 삭제 후 남은 찌꺼기 파일 청소기
+          - it.mijorus.gearlever            # 독립형 AppImage 파일 통합 및 관리 툴
+          - org.gnome.Firmware              # 하드웨어 장치 펌웨어 업데이트 도구
+
+          # --- 시스템 모니터링 & 백업 ---
+          - net.nokyan.Resources            # 미니멀하고 아름다운 하드웨어 자원 모니터
+          - org.gnome.World.PikaBackup      # BorgBackup 기반의 안전한 데이터 백업/복구
+
+          # --- 보안 & 개인정보 보호 ---
+          - com.bitwarden.desktop           # 오픈소스 크로스 플랫폼 비밀번호 관리자
+          - org.gnome.World.Secrets         # Keepass 형식 포맷 지원 비밀번호 보관소
+
+          # --- 멀티미디어 & 사운드 ---
+          - com.github.wwmm.easyeffects     # PipeWire 기반 강력한 오디오 이퀄라이저
+          - de.haeckerfelix.Shortwave       # 전 세계 인터넷 라디오 검색 및 청취 앱
+          - org.kde.haruna                  # mpv 엔진 기반의 강력한 동영상 플레이어
+          - org.nickvision.tubeconverter    # 유튜브 등 웹 비디오/오디오 다운로더
+
+          # --- 그래픽 & 데스크톱 꾸미기 ---
+          - io.gitlab.adhami3310.Impression # USB 부팅 디스크 제작(플래싱) 도구
+          - io.github.davidoc26.wallpaper_selector # 바탕화면 이미지 탐색 및 변경 도구
+
+          # --- AI, 문서 & 유틸리티 ---
+          - ai.jan.Jan                      # 로컬 오프라인 AI LLM 구동 클라이언트
+          - com.notesnook.Notesnook         # 종단간 암호화(E2E) 지원 프라이빗 노트
+          - dev.vencord.Vesktop             # Vencord 트윅이 적용된 디스코드 클라이언트
+          - org.kde.kcalc                   # 공학용 계산 기능을 지원하는 다기능 계산기
+          - org.kde.okular                  # PDF, EPUB 등 범용 문서/서적 뷰어
       - scope: user # Also add Flathub user repo, but no user packages
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
