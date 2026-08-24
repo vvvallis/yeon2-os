@@ -21,7 +21,7 @@ modules:
         - https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     install:
       packages:
-        - brave-browser
+        - brave-origin
         # 보안/점검 도구
         - kdiskmark
         - clamav
@@ -36,6 +36,7 @@ modules:
         - google-noto-sans-cjk-fonts
         - google-noto-serif-cjk-fonts
         - google-noto-emoji-fonts
+        - google-noto-sans-mongolian-fonts 
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
