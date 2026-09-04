@@ -53,8 +53,7 @@ modules:
           # --- 웹 브라우저 & 인터넷 ---
           - org.mozilla.firefox             # 파이어폭스 순정 웹 브라우저
           - org.telegram.desktop            # 텔레그램 데스크톱 공식 메신저
-          - org.qbittorrent.qBittorrent     # 광고 없는 오픈소스 토렌트 다운로더
-
+          
           # --- 시스템 관리 & 패키지 도구 ---
           - com.github.tchx84.Flatseal      # 플랫팩 앱들의 샌드박스 권한 제어기
           - io.github.denysmb.unify         # 웹앱 매니저
@@ -70,11 +69,11 @@ modules:
           # --- 보안 & 개인정보 보호 ---
           - com.bitwarden.desktop           # 오픈소스 크로스 플랫폼 비밀번호 관리자
           - org.gnome.World.Secrets         # Keepass 형식 포맷 지원 비밀번호 보관소
+          - org.cryptomator.Cryptomator     # 클라우드 암호화
 
           # --- 멀티미디어 & 사운드 ---
           - com.github.wwmm.easyeffects     # PipeWire 기반 강력한 오디오 이퀄라이저
           - de.haeckerfelix.Shortwave       # 전 세계 인터넷 라디오 검색 및 청취 앱
-          - org.kde.haruna                  # mpv 엔진 기반의 강력한 동영상 플레이어
           - org.nickvision.tubeconverter    # 유튜브 등 웹 비디오/오디오 다운로더
 
           # --- 그래픽 & 데스크톱 꾸미기 ---
@@ -83,10 +82,7 @@ modules:
 
           # --- AI, 문서 & 유틸리티 ---
           - ai.jan.Jan                      # 로컬 오프라인 AI LLM 구동 클라이언트
-          - com.notesnook.Notesnook         # 종단간 암호화(E2E) 지원 프라이빗 노트
           - dev.vencord.Vesktop             # Vencord 트윅이 적용된 디스코드 클라이언트
-          - org.kde.kcalc                   # 공학용 계산 기능을 지원하는 다기능 계산기
-          - org.kde.okular                  # PDF, EPUB 등 범용 문서/서적 뷰어
       - scope: user # Also add Flathub user repo, but no user packages
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
