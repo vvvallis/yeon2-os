@@ -3,10 +3,10 @@
 # image will be published to ghcr.io/<user>/<name>
 name: yeon2-os
 # description will be included in the image's metadata
-description: 노트북용 시큐어블루 개인 커스텀 os.
+description: 노트북용 개인 커스텀 os.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/secureblue/silverblue-main-hardened
+base-image: ghcr.io/ublue-os/silverblue-main
 image-version: 44 # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
