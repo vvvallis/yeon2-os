@@ -22,7 +22,6 @@ modules:
     install:
       packages:
         - brave-origin
-        - waydroid
         # 보안/점검 도구
         - kdiskmark
         - clamav
